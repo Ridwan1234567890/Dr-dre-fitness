@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# environment variables and secrets (add these now, even if unused yet)
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+
+# macOS and editors
+.DS_Store
+.vscode/
+.idea/
+
+# local exports and backups
+*.zip

@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root{color-scheme:light;--bg:#efede8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root.dark{color-scheme:dark;--bg:#09090b}
+body{background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;background-image:radial-gradient(900px 500px at 85% -10%,rgba(235,169,59,.17),transparent 60%),radial-gradient(700px 400px at -10% 100%,rgba(53,160,216,.15),transparent 60%),linear-gradient(rgba(127,127,127,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(127,127,127,.07) 1px,transparent 1px);background-size:auto,auto,36px 36px,36px 36px;background-attachment:fixed}
+.disp{font-family:'Barlow Condensed','Arial Narrow',Impact,sans-serif;text-transform:uppercase;letter-spacing:.03em}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.92)}60%{transform:scale(1.03)}100%{opacity:1;transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}100%{box-shadow:0 0 0 10px rgba(34,197,94,0)}}
+@keyframes scan{from{top:0}to{top:100%}}
+.fadeup{animation:fadeup .5s ease both}
+.pop{animation:pop .45s cubic-bezier(.2,.9,.3,1.2) both}
+.shake{animation:pop .45s both,shake .5s .25s}
+.float{animation:float 3s ease-in-out infinite}
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 1.4s infinite}
+.scanline{position:absolute;left:0;right:0;height:3px;background:#EBA93B;box-shadow:0 0 14px #EBA93B;animation:scan 2s ease-in-out infinite alternate}
+.glow-g{box-shadow:0 0 40px rgba(16,185,129,.28)}
+.glow-a{box-shadow:0 0 40px rgba(245,158,11,.28)}
+.glow-r{box-shadow:0 0 40px rgba(239,68,68,.32)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- entrance (landing -> kiosk): flat two-panel wipe ---------- */
+.tx{position:fixed;inset:0;z-index:70;overflow:hidden}
+.tx-panel{position:absolute;top:0;bottom:0;width:50.2%;background:#09090b}
+.tx-panel.l{left:0}.tx-panel.r{right:0}
+.tx.cover .tx-panel.l{animation:in-l .5s cubic-bezier(.65,0,.35,1) both}
+.tx.cover .tx-panel.r{animation:in-r .5s cubic-bezier(.65,0,.35,1) both}
+.tx.reveal .tx-panel.l{animation:out-l .55s cubic-bezier(.65,0,.35,1) .2s both}
+.tx.reveal .tx-panel.r{animation:out-r .55s cubic-bezier(.65,0,.35,1) .2s both}
+@keyframes in-l{from{transform:translateX(-100%)}to{transform:none}}
+@keyframes in-r{from{transform:translateX(100%)}to{transform:none}}
+@keyframes out-l{to{transform:translateX(-100%)}}
+@keyframes out-r{to{transform:translateX(100%)}}
+.tx-logo{position:absolute;left:var(--lx);top:var(--ly);width:var(--lw);height:var(--lh);max-width:none;object-fit:contain}
+.tx.reveal .tx-logo{animation:fade-out .2s ease-out both}
+@keyframes fade-out{to{opacity:0}}
+
+/* staggered rise-in used by the kiosk page */
+.rise{opacity:0;animation:rise .75s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.975)}to{opacity:1;transform:none}}
+
+/* landing hint */
+@keyframes nudge{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(6px);opacity:1}}
+.nudge{animation:nudge 1.6s ease-in-out infinite}
+
+/* theme button icon + smooth colour fade while switching */
+@keyframes spinin{from{transform:rotate(-90deg) scale(.4);opacity:0}to{transform:none;opacity:1}}
+.spinin{animation:spinin .45s cubic-bezier(.2,.9,.3,1.2) both}
+@media (prefers-reduced-motion:no-preference){.theme-anim,.theme-anim *,.theme-anim *::before,.theme-anim *::after{transition:background-color .35s ease,color .35s ease,border-color .35s ease,fill .35s ease,stroke .35s ease!important}}
